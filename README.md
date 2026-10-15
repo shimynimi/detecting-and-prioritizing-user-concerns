@@ -31,6 +31,22 @@ The proposed workflow includes:
 5. **Prioritization** — combine social signals from user feedback with technical and historical software signals.
 6. **Evaluation** — compare approaches using classification metrics, including precision, recall, F1-score, and accuracy, with additional analyses of clusters and features.
 
+## Research workflow
+
+The diagram below summarizes the high-level workflow described in the thesis. It is a conceptual overview, not executable code.
+
+```mermaid
+flowchart TD
+    A[Google Play reviews] --> D[Preprocessing and phrase extraction]
+    B[GitHub issue-tracking data] --> D
+    C[Information about similar apps] --> D
+    D --> E[Text representations]
+    E --> F[Concern detection and clustering]
+    F --> G[Analysis of social and technical signals]
+    G --> H[Concern prioritization]
+    H --> I[Evaluation and error analysis]
+```
+
 ## Reported result
 
 The thesis reports that a **Random Forest model achieved 0.7906 accuracy** in the evaluated concern-identification/prediction setting. The thesis also reports an F1-score of approximately **0.83** for the corresponding evaluated result.
@@ -58,7 +74,7 @@ Code and data will only be added after checking that they are shareable and remo
 ## Planned additions
 
 - An expanded English research summary covering the precise pipeline and evaluation protocol
-- A methodology diagram and selected results tables, where permitted
+- Selected results tables, where permitted
 - Cleaned, shareable implementation code and configuration files, if available
 - Reproduction instructions and documented limitations
 
