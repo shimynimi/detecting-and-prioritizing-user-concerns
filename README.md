@@ -1,7 +1,7 @@
 # Detecting and Prioritizing User Concerns in Mobile Apps
 
 **MSc thesis · Computer Engineering (Algorithms & Computation)**  
-**Sharif University of Technology · October 2025**  
+**Sharif University of Technology · Defended 22 October 2025**  
 **Author:** Shima Rezai  
 **Supervisor:** Dr. Abbas Heydarnoori
 
@@ -11,7 +11,7 @@ Mobile-app developers receive large volumes of user feedback through app-store r
 
 This thesis investigates a multi-source approach to identifying, semantically grouping, and prioritising user concerns in mobile applications. It combines Google Play reviews with GitHub issue-tracking information and feedback from similar applications. The workflow uses natural language processing, phrase representations, semantic clustering, automatic cluster labelling, and machine-learning models to support the analysis of concerns across application versions.
 
-The work was completed as an MSc thesis in Computer Engineering (Algorithms & Computation) at Sharif University of Technology and was successfully defended.
+The work was completed as an MSc thesis in Computer Engineering (Algorithms & Computation) at Sharif University of Technology and successfully defended on **22 October 2025**.
 
 ## Research problem and questions
 
@@ -99,27 +99,13 @@ The thesis describes an 80/20 training–test split and also discusses stratifie
 
 ## Reported findings
 
-The results below are transcribed from the **Chapter 5 test-set comparison table (Table 4-5; PDF page 84, printed page 75)** of the approved thesis.
+The thesis reports that **Random Forest and CatBoost were among the strongest-performing models** in the comparison. Random Forest is reported with an F1-score of **0.83**, while CatBoost is also reported with an F1-score of **0.83**. The thesis discusses better performance by the classical machine-learning models than by the deep-learning models in this experimental setting, and identifies limited data and overfitting as possible explanations for the weaker deep-learning results.
 
-| Model | Accuracy | Precision | Recall | F1-score | AUC-ROC |
-|---|---:|---:|---:|---:|---:|
-| Decision Tree | 0.78 | 0.75 | 0.72 | 0.73 | 0.80 |
-| Random Forest | 0.86 | 0.84 | 0.82 | 0.83 | 0.88 |
-| SVM | 0.82 | 0.80 | 0.77 | 0.78 | 0.85 |
-| Logistic Regression | 0.79 | 0.76 | 0.74 | 0.75 | 0.82 |
-| XGBoost | 0.84 | 0.82 | 0.83 | 0.82 | 0.87 |
-| CatBoost | 0.85 | 0.85 | 0.81 | 0.83 | 0.87 |
-| MLP | 0.76 | 0.74 | 0.71 | 0.72 | 0.78 |
-| LSTM | 0.72 | 0.70 | 0.68 | 0.69 | 0.75 |
-| Stacking | 0.85 | 0.83 | 0.82 | 0.83 | 0.87 |
+There is an inconsistency in the reported Random Forest accuracy: the abstract gives **0.7906**, while the detailed model-comparison results give **0.86**. The thesis does not explain the difference. For that reason, this README does not present either accuracy figure as a definitive headline result. The discrepancy should be clarified before a single accuracy value is used in an external application or publication.
 
-The thesis identifies Random Forest and CatBoost among the strongest-performing models in this comparison. It also reports that the classical models performed better than the deep-learning models in this setting, with overfitting and limited data discussed as possible reasons for the weaker deep-learning results.
+The thesis also reports using paired t-tests, one-way ANOVA, and the Friedman test to compare model performance, with statistically significant differences (p < 0.05) reported between the classical models highlighted in the discussion and the deep-learning models. The detailed test statistics and underlying repeated-run outputs are not included in this repository.
 
-**Reporting note:** The thesis abstract (PDF page 5) reports Random Forest accuracy as **0.7906**, whereas the Chapter 5 test-set table reports **0.86**. The thesis does not explain this difference. Both values are preserved here with their locations identified; the discrepancy should be clarified before either is presented as a single definitive accuracy figure. The F1-score for Random Forest is reported as **0.83** in the Chapter 5 table.
-
-The thesis also states that paired t-tests, one-way ANOVA, and the Friedman test were used to compare model performance, and reports statistically significant differences (p < 0.05) between the classical models highlighted in the discussion and the deep-learning models. Detailed test statistics and the underlying repeated-run outputs are not included in this repository.
-
-> **Reproduction status:** All metrics above are thesis-reported results. They have not been independently reproduced from the contents of this public repository.
+> **Reproduction status:** These are findings reported in the approved thesis. They have not been independently reproduced from the contents of this public repository.
 
 ## My research contribution
 
@@ -150,7 +136,7 @@ For that reason:
 
 ## Citation
 
-Rezai, Shima (2025). *Detecting and Prioritizing User Concerns in Mobile Apps*. MSc thesis, Department of Computer Engineering, Sharif University of Technology. Supervisor: Dr. Abbas Heydarnoori. (Thesis in Persian; defended December 2025.)
+Rezai, Shima (2025). *Detecting and Prioritizing User Concerns in Mobile Apps*. MSc thesis, Department of Computer Engineering, Sharif University of Technology. Supervisor: Dr. Abbas Heydarnoori. Thesis in Persian; defended 22 October 2025.
 
 ---
 
