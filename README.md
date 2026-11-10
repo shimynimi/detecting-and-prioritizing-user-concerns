@@ -22,7 +22,7 @@ To enrich the analysis, five similar applications were identified for each selec
 2. **Semantic representation.** Alternative embedding approaches were compared, and a pretrained FastText model was adapted to the study text to represent the extracted phrases.
 3. **Concern discovery.** K-Means was applied to the phrase vectors, with silhouette analysis guiding the selection of 10 clusters.
 4. **Automatic labelling.** Flan-T5-Large generated concise, zero-shot labels from representative cluster keywords. Semantic-similarity and label-quality checks supported the interpretation of the resulting concern groups.
-5. **Prioritisation across releases.** User-feedback signals were combined with historical patterns and technical indicators from GitHub. A central measure was the **Negativity Ratio (NR)**, which captures the share of negative reviews associated with a concern in a release in relation to its historical pattern. I implemented the NR-based prioritisation measure and incorporated it into the analysis alongside previous-release indicators, bug and feature-request ratios, issue status, and developer responses.
+5. **Prioritisation across releases.** User-feedback signals were combined with historical patterns and technical indicators from GitHub. A central measure was the **Negativity Ratio (NR)**, which compares the share of negative reviews associated with a concern in a release with its historical pattern. It was analysed alongside previous-release indicators, bug and feature-request ratios, issue status, and developer responses.
 
 ## Evaluation and findings
 
