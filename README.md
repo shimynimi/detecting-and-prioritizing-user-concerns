@@ -28,7 +28,9 @@ For additional context, five similar applications were identified for each selec
 
 The thesis compares classical machine-learning approaches—including Random Forest, CatBoost, XGBoost, SVM, and Logistic Regression—with MLP, LSTM, and a stacking approach. Evaluation uses classification metrics such as precision, recall, F1-score, accuracy, and AUC-ROC, alongside cluster-quality analysis and error analysis.
 
-The thesis identifies **Random Forest and CatBoost among the strongest-performing models** in its reported comparison. It reports an F1-score of **0.83** for both in the detailed model comparison. There is an unresolved inconsistency in the reported Random Forest accuracy: the abstract gives **0.7906**, while the detailed comparison gives **0.86**. I therefore do not present a single definitive Random Forest accuracy figure here.
+The thesis identifies **Random Forest and CatBoost among the strongest-performing models**, with a reported F1-score of **0.83** for each. It also reports stronger performance by the classical approaches than by the deep-learning models in this experimental setting.
+
+> **Reproduction status:** These are findings reported in the thesis; they have not been independently reproduced from the materials in this public repository.
 
 ## My contribution
 
