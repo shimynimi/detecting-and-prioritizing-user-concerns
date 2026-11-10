@@ -30,17 +30,17 @@ The thesis compares classical machine-learning approaches—including Random For
 
 The thesis identifies **Random Forest and CatBoost among the strongest-performing models**, with a reported F1-score of **0.83** for each. It also reports stronger performance by the classical approaches than by the deep-learning models in this experimental setting.
 
-> **Reproduction status:** These are findings reported in the thesis; they have not been independently reproduced from the materials in this public repository.
-
 ## My contribution
 
-My main contribution was in **research design, experimental work, and analysis**. I designed and conducted the experiments, analysed and interpreted the findings, and implemented the NR-based prioritisation measure proposed by my supervisor. The thesis was successfully defended and formally approved at Sharif University of Technology.
+My primary contributions were **research design, experimental evaluation, and analysis**. I designed and conducted the experiments, analysed and interpreted the findings, and implemented the NR-based prioritisation measure proposed by my supervisor. The thesis was successfully defended and formally approved at Sharif University of Technology.
 
-## Scope and reproducibility
+## Scope and research opportunities
 
-The study focuses on Android applications; extending the approach to other platforms and software domains requires further evaluation. The thesis also discusses sparse feedback and limited data as challenges, particularly for smaller concern groups and deep-learning models.
+The study focuses on Android applications. Extending the approach to iOS, desktop software, and other application domains offers a direction for further evaluation. The thesis also identifies opportunities to strengthen analysis for concern clusters with relatively few reviews and to investigate model performance with larger and more balanced datasets.
 
-This public repository currently provides a research overview, not a complete executable reproduction. The full datasets, trained models, complete implementation, and all experiment configurations are not available here. Results are therefore **thesis-reported**, not independently reproduced from this repository.
+## Repository note
+
+This repository is a concise research record rather than a software release. It currently documents the approved study and its thesis-reported findings; the full implementation, source datasets, trained models, and complete experiment artefacts are not distributed here. The reported results have not been independently reproduced from the public repository.
 
 ## Citation
 
