@@ -1,83 +1,157 @@
 # Detecting and Prioritizing User Concerns in Mobile Apps
 
-**MSc thesis · Computer Engineering (Algorithms & Computation) · Sharif University of Technology · October 2025**
-
+**MSc thesis · Computer Engineering (Algorithms & Computation)**  
+**Sharif University of Technology · October 2025**  
 **Author:** Shima Rezai  
 **Supervisor:** Dr. Abbas Heydarnoori
 
 ## Overview
 
-Mobile-app developers receive large volumes of feedback in app-store reviews, while issue-tracking systems contain complementary technical information. This thesis investigates how these sources can be combined to identify, group, and prioritize user concerns—such as reported bugs, feature requests, and suggestions for improvement.
+Mobile-app developers receive large volumes of user feedback through app-store reviews. These reviews contain bug reports, feature requests, and suggestions for improvement, while issue-tracking systems provide complementary information about the technical work associated with an application. Analysing either source in isolation can leave important parts of a user's concern unexplored.
 
-The central idea is to move beyond treating each review in isolation: combine user-facing feedback with software-development evidence and information about similar applications to provide a more structured view of the concerns that may matter most.
+This thesis investigates a multi-source approach to identifying, semantically grouping, and prioritising user concerns in mobile applications. It combines Google Play reviews with GitHub issue-tracking information and feedback from similar applications. The workflow uses natural language processing, phrase representations, semantic clustering, automatic cluster labelling, and machine-learning models to support the analysis of concerns across application versions.
 
-## Research questions
+The work was completed as an MSc thesis in Computer Engineering (Algorithms & Computation) at Sharif University of Technology and was successfully defended.
 
-- How can user concerns be identified from large collections of app reviews?
-- Can app-store reviews be enriched with issue-tracking information from GitHub?
-- How can text representations and clustering be used to group related concerns?
-- Which social and technical signals can help prioritize concern clusters?
+## Research problem and questions
 
-## Data and methodology
+The research addresses three connected tasks:
 
-The thesis reports using the DATAR dataset covering **1,363 mobile applications**, with user reviews from Google Play and technical information from GitHub issue-tracking repositories. Data from similar applications is also used to enrich the analysis.
+1. **Concern identification:** How can meaningful concerns be extracted from large collections of unstructured app reviews?
+2. **Semantic organisation:** How can phrases that express similar concerns be grouped into interpretable, higher-level themes?
+3. **Concern prioritisation:** How can user-feedback signals, historical patterns, and technical issue-tracking information be combined to estimate which concerns deserve attention?
 
-The proposed workflow includes:
+The thesis also examines whether information from similar applications can enrich the analysis, particularly when an individual application has limited feedback.
 
-1. **Multi-source data collection** — combine app reviews with software issue-tracking data.
-2. **Text preprocessing** — clean and normalize text, prepare terms and phrases, and extract salient word pairs.
-3. **Text representation** — use language/text representations, including FastText-based representations, to support semantic analysis.
-4. **Concern discovery** — apply machine-learning and clustering methods to group related user concerns and label clusters.
-5. **Prioritization** — combine social signals from user feedback with technical and historical software signals.
-6. **Evaluation** — compare approaches using classification metrics, including precision, recall, F1-score, and accuracy, with additional analyses of clusters and features.
+## Data sources and study scope
 
-## Research workflow
+The thesis reports using the DATAR collection, which contains information about **1,363 mobile applications** and their releases. From this collection, **228 applications** were selected for the study. The selection criteria included information such as release history, review volume, and issue-tracking activity; applications needed more than one release to support comparisons across versions.
 
-The diagram below summarizes the high-level workflow described in the thesis. It is a conceptual overview, not executable code.
+The study reports collecting approximately **1,335,327 Google Play reviews** for the selected applications. The collected information included review text, ratings, dates, application descriptions, and release-related information.
 
-```mermaid
-flowchart TD
-    A[Google Play reviews] --> D[Preprocessing and phrase extraction]
-    B[GitHub issue-tracking data] --> D
-    C[Information about similar apps] --> D
-    D --> E[Text representations]
-    E --> F[Concern detection and clustering]
-    F --> G[Analysis of social and technical signals]
-    G --> H[Concern prioritization]
-    H --> I[Evaluation and error analysis]
-```
+To incorporate evidence from similar applications, the study:
 
-## Reported result
+- Identified five similar applications for each selected application using TF–IDF representations of app descriptions and cosine similarity.
+- Collected up to 30 highly liked reviews from each similar application.
+- Combined these reviews with application-specific feedback for subsequent semantic analysis and prioritisation.
 
-The thesis reports that a **Random Forest model achieved 0.7906 accuracy** in the evaluated concern-identification/prediction setting. The thesis also reports an F1-score of approximately **0.83** for the corresponding evaluated result.
+GitHub data supplied complementary technical signals, including issue reports, feature requests, issue status, and release-related information.
 
-These are the results reported in the thesis, not a fresh reproduction run from this repository. They should be interpreted in the context of the thesis's particular data, labels, splits, and evaluation design.
+> **Scope note:** These figures and collection steps are reported in the thesis. The underlying datasets and collection scripts are not currently included in this public repository.
 
-## Why this work matters
+## Methodology
 
-Prioritizing user concerns is a software-maintenance and decision-support problem as well as a text-mining task. Combining user-facing feedback with technical issue-tracking information can help developers build a more complete picture of reported problems and potential improvements.
+### 1. Text preprocessing and phrase extraction
 
-## Technologies and methods
+The review and description text was prepared for analysis using Python NLP tools, including NLTK and WordNet. The thesis describes tokenisation, part-of-speech tagging, lemmatisation, removal of standard and custom stop words, normalisation of case, and removal of punctuation and other unwanted characters.
 
-- **NLP / text mining:** text preprocessing, phrase extraction, text representations
-- **Machine learning:** Random Forest and other baseline/classification approaches
-- **Unsupervised analysis:** clustering and cluster interpretation
-- **Evaluation:** precision, recall, F1-score, accuracy, feature and error analysis
-- **Data sources:** Google Play reviews, GitHub issue-tracking data, DATAR
+Negation expressions were normalised to a common token (not) so that negative meaning would be handled more consistently.
 
-## Repository status
+The workflow then extracted **bigrams** (two-word expressions) as candidate descriptions of user concerns. The thesis describes filtering these candidates using frequency, syntactic patterns, duplicate and similarity checks, and evidence from similar applications. Prominent bigrams were selected using frequency quartiles, including the upper quartile, followed by min–max normalisation.
 
-This repository currently provides an English overview of the MSc thesis. The original thesis is written in Persian. The research code, detailed experiment configurations, and datasets have **not yet been added** to this public repository.
+### 2. FastText representations
 
-Code and data will only be added after checking that they are shareable and removing any restricted, personal, or licensed material. Until then, this README should be treated as a project summary—not a claim that the full experiment is reproducible from this repository.
+The selected bigrams were converted into vector representations so that semantically related phrases could be compared. The thesis evaluates alternative word-embedding approaches, including Word2Vec, GloVe, FastText, ELMo, and Universal Sentence Encoder.
 
-## Planned additions
+FastText was selected for the final workflow. The thesis describes adapting a pretrained FastText model to the study text over **10 training epochs**. It also reports testing 16 textual formats for representing bigrams; the simple space-separated form (for example, "app good") achieved the highest reported silhouette score in that format experiment (**0.85**).
 
-- An expanded English research summary covering the precise pipeline and evaluation protocol
-- Selected results tables, where permitted
-- Cleaned, shareable implementation code and configuration files, if available
-- Reproduction instructions and documented limitations
+### 3. Semantic clustering
+
+The FastText vectors were grouped using **K-Means**. The thesis reports selecting **10 clusters** based on the silhouette criterion. The goal was to consolidate varied, fine-grained expressions into broader concern groups that could be interpreted and compared across application releases.
+
+### 4. Automatic cluster labelling
+
+To make the clusters easier to interpret, the workflow generated short labels from representative keywords. The thesis describes selecting up to 10 representative keywords for a cluster and using **Flan-T5-Large** in a zero-shot labelling step to produce a concise label of approximately two to five words.
+
+The proposed quality checks included semantic similarity between the cluster representation and its label, handling ambiguous or unrelated labels, and checking for unintended duplicate labels. Labels judged unsuitable could be replaced with a general "Other" label.
+
+### 5. Concern prioritisation and the Negativity Ratio
+
+After concern clusters were formed, the study assessed their priority using user-feedback and technical indicators.
+
+A central measure was the **Negativity Ratio (NR)**, a methodology proposed by the thesis supervisor and implemented by the author. It compares the share of negative reviews for a concern cluster in a particular application release with the historical pattern for that cluster.
+
+The thesis defines:
+
+- **RNR:** the proportion of reviews rated two stars or lower within a concern cluster for a particular release.
+- **MRNR:** the median RNR across previous releases.
+- **NR:** a normalised measure, using the hyperbolic tangent function, of how the current negative-feedback level compares with its historical baseline.
+
+The thesis also describes special handling for cases such as releases with no reviews or no historical negative-review baseline. Priority labels are assigned by comparing the current NR with a threshold informed by historical variability.
+
+Additional features described in the thesis include:
+
+- Previous-release RNR and NR.
+- Bug-report and feature-request ratios.
+- Ratios of created and closed GitHub issues.
+- The proportion of user reviews receiving developer responses.
+- Historical application and release indicators.
+
+This component connects current user feedback with the history of a concern and the technical activity recorded for an application.
+
+### 6. Model evaluation
+
+The thesis compares classical machine-learning models and deep-learning approaches for the concern-identification and prioritisation tasks. Models reported include Decision Tree, Random Forest, Support Vector Machine, Logistic Regression, XGBoost, CatBoost, Multilayer Perceptron (MLP), LSTM, and a stacking approach.
+
+Reported evaluation measures include accuracy, precision, recall, F1-score, and AUC-ROC. Cluster analysis also considers measures such as silhouette and Davies–Bouldin, together with qualitative assessment of cluster coherence and interpretability.
+
+The thesis describes an 80/20 training–test split and also discusses stratified cross-validation. Full experiment configurations, seeds, fold-level outputs, and executable evaluation scripts are not currently available in this repository.
+
+## Reported findings
+
+The results below are transcribed from the **Chapter 5 test-set comparison table (Table 4-5; PDF page 84, printed page 75)** of the approved thesis.
+
+| Model | Accuracy | Precision | Recall | F1-score | AUC-ROC |
+|---|---:|---:|---:|---:|---:|
+| Decision Tree | 0.78 | 0.75 | 0.72 | 0.73 | 0.80 |
+| Random Forest | 0.86 | 0.84 | 0.82 | 0.83 | 0.88 |
+| SVM | 0.82 | 0.80 | 0.77 | 0.78 | 0.85 |
+| Logistic Regression | 0.79 | 0.76 | 0.74 | 0.75 | 0.82 |
+| XGBoost | 0.84 | 0.82 | 0.83 | 0.82 | 0.87 |
+| CatBoost | 0.85 | 0.85 | 0.81 | 0.83 | 0.87 |
+| MLP | 0.76 | 0.74 | 0.71 | 0.72 | 0.78 |
+| LSTM | 0.72 | 0.70 | 0.68 | 0.69 | 0.75 |
+| Stacking | 0.85 | 0.83 | 0.82 | 0.83 | 0.87 |
+
+The thesis identifies Random Forest and CatBoost among the strongest-performing models in this comparison. It also reports that the classical models performed better than the deep-learning models in this setting, with overfitting and limited data discussed as possible reasons for the weaker deep-learning results.
+
+**Reporting note:** The thesis abstract (PDF page 5) reports Random Forest accuracy as **0.7906**, whereas the Chapter 5 test-set table reports **0.86**. The thesis does not explain this difference. Both values are preserved here with their locations identified; the discrepancy should be clarified before either is presented as a single definitive accuracy figure. The F1-score for Random Forest is reported as **0.83** in the Chapter 5 table.
+
+The thesis also states that paired t-tests, one-way ANOVA, and the Friedman test were used to compare model performance, and reports statistically significant differences (p < 0.05) between the classical models highlighted in the discussion and the deep-learning models. Detailed test statistics and the underlying repeated-run outputs are not included in this repository.
+
+> **Reproduction status:** All metrics above are thesis-reported results. They have not been independently reproduced from the contents of this public repository.
+
+## My research contribution
+
+My main contribution to this MSc thesis was in **research design, experimental work, and analysis**. I designed and conducted the experiments and analysed and interpreted the results. I also implemented the Negativity Ratio methodology proposed by my supervisor, Dr. Abbas Heydarnoori.
+
+The thesis was successfully defended and formally approved at Sharif University of Technology.
+
+## Limitations and future work
+
+The thesis identifies several limitations and directions for further work:
+
+- The study focuses primarily on Android applications; transfer to iOS and desktop software requires further evaluation.
+- Applications and concern clusters with few reviews can be difficult to classify reliably.
+- Deep-learning models showed weaker performance in the reported experiments, with overfitting discussed as a contributing factor; larger and more balanced datasets may help.
+- The preprocessing and concern-grouping stages could be further improved.
+- Future work could expand the data sources and application domains, improve cluster interpretability, and evaluate the approach in larger-scale real-world settings.
+
+## Repository status and reproducibility
+
+This repository currently contains an **English research overview** of the MSc thesis. It does not yet contain the complete thesis implementation, source datasets, trained model files, or all experiment configurations.
+
+For that reason:
+
+- The README documents the workflow and results described in the thesis; it is not an executable implementation.
+- The reported results should not be interpreted as reproduced by this repository.
+- Code, data, and model artefacts will only be added if they can be shared appropriately and safely.
+- Missing implementation details will be documented rather than inferred.
 
 ## Citation
 
-Rezai, Shima. *Detecting and Prioritizing User Concerns in Mobile Apps*. MSc thesis, Department of Computer Engineering, Sharif University of Technology, October 2025. Supervisor: Dr. Abbas Heydarnoori.
+Rezai, Shima (2025). *Detecting and Prioritizing User Concerns in Mobile Apps*. MSc thesis, Department of Computer Engineering, Sharif University of Technology. Supervisor: Dr. Abbas Heydarnoori. (Thesis in Persian; defended December 2025.)
+
+---
+
+For questions about the research, please contact the author through the email address listed on the [GitHub profile](https://github.com/shimynimi).
